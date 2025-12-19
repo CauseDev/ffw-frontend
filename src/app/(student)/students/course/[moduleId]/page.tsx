@@ -1,7 +1,7 @@
 "use client";
 
 import { useAuth } from "@/hooks/use-auth";
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/api";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -27,6 +27,7 @@ export default function ModuleContentPage() {
 	const moduleId = params.moduleId as string;
 	const { user } = useAuth();
 	const router = useRouter();
+	const queryClient = useQueryClient();
 	const [selectedContentId, setSelectedContentId] = useState<string | null>(null);
 	const [exerciseResponses, setExerciseResponses] = useState<Record<string, Record<string, string>>>({});
 	const hasAutoSelectedRef = useRef(false);
@@ -266,21 +267,28 @@ export default function ModuleContentPage() {
 			// 2. Wait for caches to update
 			await new Promise(resolve => setTimeout(resolve, 100));
 
-			// 3. Check if course is now complete
-			const isCourseComplete = overallProgress?.completed_content === overallProgress?.total_content;
+			// 3. Check if this is the last content in the entire course
+			const isLastContentInCourse = !nextContent && !hasNextModule;
+			
+			// 4. Get updated progress after cache sync
+			const updatedOverallProgress = queryClient.getQueryData<any>(['progress', 'overall']);
+			const isCourseComplete = updatedOverallProgress?.progress_percentage === 100;
 
-			// 4. Navigate to next content or certificate
+			// 5. Navigate to next content or certificate
 			if (nextContent) {
 				toast.success("Moving to next content...");
 				setTimeout(() => {
 					setSelectedContentId(nextContent.id);
 				}, 1000);
-			} else if (isCourseComplete && !wasAlreadyComplete) {
+			} else if (isLastContentInCourse && isCourseComplete && !wasAlreadyComplete) {
 				// Course just completed - show congratulations and navigate to certificate
 				toast.success("🎉 Congratulations! You've completed the course!");
 				setTimeout(() => {
 					router.push("/students/certificate");
 				}, 2000);
+			} else if (!nextContent && hasNextModule && isCurrentModuleCompleted) {
+				// Module completed but course not done - suggest next module
+				toast.success("Module completed! Continue to the next module.");
 			}
 		} catch (error) {
 			// Error handling done by useProgress hook

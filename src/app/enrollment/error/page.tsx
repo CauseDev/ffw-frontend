@@ -18,9 +18,9 @@ function ErrorContent() {
 					<div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-sm-full">
 						<AlertCircle className="h-10 w-10 text-orange-600" />
 					</div>
-					<CardTitle className="text-2xl">Payment Error</CardTitle>
+					<CardTitle className="text-2xl">Payment Processing</CardTitle>
 					<CardDescription>
-						Something went wrong with your payment
+						We're verifying your payment
 					</CardDescription>
 				</CardHeader>
 				<CardContent className="space-y-4">
@@ -31,15 +31,15 @@ function ErrorContent() {
 
 					<div className="space-y-2 text-sm text-muted-foreground">
 						<p className="font-medium text-foreground">What can you do?</p>
-						<p>• Check your internet connection</p>
-						<p>• Verify your payment details</p>
-						<p>• Try again in a few minutes</p>
-						<p>• Contact support if the issue persists</p>
+						<p>• If payment was deducted, don't worry - it's being processed</p>
+						<p>• Check your email for payment confirmation</p>
+						<p>• Contact support with your transaction details</p>
+						<p>• Our team will manually verify and activate your account</p>
 					</div>
 
 					<div className="pt-4 space-y-2">
 						<Button asChild className="w-full rounded-sm h-10">
-							<Link href="/enroll">Try Again</Link>
+							<Link href="/login">Go to Login</Link>
 						</Button>
 						<Button asChild variant="outline" className="w-full rounded-sm h-10">
 							<Link href="/">Go to Home</Link>
@@ -47,7 +47,7 @@ function ErrorContent() {
 					</div>
 
 					<div className="text-center text-sm text-muted-foreground">
-						<p>Need help? Contact support</p>
+						<p>Need help? Contact support with your payment details</p>
 					</div>
 				</CardContent>
 			</Card>

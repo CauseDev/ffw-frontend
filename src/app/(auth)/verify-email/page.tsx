@@ -30,7 +30,7 @@ function VerifyEmailContent() {
 			try {
 				const response = await api.post("/auth/verify-email", { token });
 				setStatus("success");
-				setMessage(response.data.message ||"Your email has been verified successfully!");
+				setMessage(response.data.message || "Your email has been verified successfully!");
 
 				// Redirect to login after 3 seconds
 				setTimeout(() => {
@@ -38,9 +38,18 @@ function VerifyEmailContent() {
 				}, 3000);
 			} catch (error: any) {
 				setStatus("error");
-				setMessage(
-					error.response?.data?.error?.message ||"Failed to verify email. The link may be expired or invalid."
-				);
+				const errorMessage = error.response?.data?.detail || error.response?.data?.error?.message;
+				
+				// Handle specific error cases
+				if (errorMessage?.includes("already verified")) {
+					setMessage("This email is already verified. You can log in now.");
+				} else if (errorMessage?.includes("expired")) {
+					setMessage("This verification link has expired. Please request a new one.");
+				} else if (errorMessage?.includes("Invalid")) {
+					setMessage("Invalid verification link. Please check your email or request a new link.");
+				} else {
+					setMessage(errorMessage || "Failed to verify email. Please try again or contact support.");
+				}
 			}
 		};
 
@@ -62,40 +71,47 @@ function VerifyEmailContent() {
 						/>
 					</Link>
 				</div>
+				<CardTitle className="text-center text-2xl">
+					{status === "loading" && "Email Verification"}
+					{status === "success" && "Verification Successful"}
+					{status === "error" && "Verification Failed"}
+				</CardTitle>
 				<CardDescription className="text-center">
-					{status ==="loading" &&"Verifying your email address..."}
-					{status ==="success" &&"Your account is now active"}
-					{status ==="error" &&"Verification failed"}
+					{status === "loading" && "Verifying your email address..."}
+					{status === "success" && "Your account is now active"}
+					{status === "error" && "Unable to verify your email"}
 				</CardDescription>
 			</CardHeader>
 			<CardContent>
 				<div className="flex flex-col items-center justify-center space-y-4 py-4">
-					{status ==="loading" && (
+					{status === "loading" && (
 						<Loader2 className="h-16 w-16 text-primary animate-spin" />
 					)}
-					{status ==="success" && (
+					{status === "success" && (
 						<CheckCircle2 className="h-16 w-16 text-green-500" />
 					)}
-					{status ==="error" && (
+					{status === "error" && (
 						<XCircle className="h-16 w-16 text-destructive" />
 					)}
 
 					<p className="text-center text-muted-foreground">{message}</p>
 
-					{status ==="success" && (
+					{status === "success" && (
 						<p className="text-sm text-muted-foreground">
 							Redirecting to login page...
 						</p>
 					)}
 
-					{status ==="error" && (
+					{status === "error" && (
 						<div className="flex flex-col gap-2 w-full">
 							<Button asChild className="w-full h-10 rounded-sm">
 								<Link href="/login">Go to Login</Link>
 							</Button>
-							<Button asChild variant="outline" className="w-full h-10 rounded-sm">
-								<Link href="/register">Register Again</Link>
-							</Button>
+							{!message.includes("already verified") && (
+								<Button asChild variant="outline" className="w-full h-10 rounded-sm">
+									<Link href="/register">Register Again</Link>
+								</Button>
+							)}
 						</div>
 					)}
 				</div>

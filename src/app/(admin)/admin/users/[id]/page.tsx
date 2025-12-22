@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { usersApi } from "@/lib/users-api";
+import { api } from "@/lib/api";
 import type { UserDetailResponse } from "@/types/user";
 import {
 	User,
@@ -17,6 +18,7 @@ import {
 	FileText,
 	ArrowLeft,
 	Activity,
+	CheckCircle2,
 } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -26,6 +28,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { toast } from "sonner";
 
 export default function UserDetailPage() {
 	const params = useParams();
@@ -35,6 +38,7 @@ export default function UserDetailPage() {
 	const [user, setUser] = useState<UserDetailResponse | null>(null);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
+	const [completingPayment, setCompletingPayment] = useState<string | null>(null);
 
 	useEffect(() => {
 		fetchUserDetail();
@@ -50,6 +54,35 @@ export default function UserDetailPage() {
 			console.error(err);
 		} finally {
 			setLoading(false);
+		}
+	};
+
+	const handleCompletePayment = async (paymentId: string) => {
+		if (!confirm("Are you sure you want to manually complete this payment? Only do this if you've verified the payment succeeded in your iPay dashboard.")) {
+			return;
+		}
+
+		try {
+			setCompletingPayment(paymentId);
+			const response = await api.post(`/admin/payments/manual-complete/${paymentId}`);
+			
+			if (response.data.success) {
+				toast.success("Payment Completed", {
+					description: "Payment has been marked as completed and user has been enrolled.",
+				});
+				// Refresh user data
+				await fetchUserDetail();
+			} else {
+				toast.error("Failed to Complete Payment", {
+					description: response.data.message || "An error occurred",
+				});
+			}
+		} catch (error: any) {
+			toast.error("Error", {
+				description: error.response?.data?.message || "Failed to complete payment",
+			});
+		} finally {
+			setCompletingPayment(null);
 		}
 	};
 
@@ -329,7 +362,7 @@ export default function UserDetailPage() {
 												key={payment.id}
 												className="flex items-center justify-between border-b pb-4 last:border-0 last:pb-0"
 											>
-												<div className="space-y-1">
+												<div className="space-y-1 flex-1">
 													<div className="flex items-center gap-2">
 														<Badge
 															variant={
@@ -357,10 +390,30 @@ export default function UserDetailPage() {
 														</p>
 													)}
 												</div>
-												<div className="text-right">
-													<p className="text-lg font-medium">
-														{payment.currency} {parseFloat(payment.amount).toLocaleString()}
-													</p>
+												<div className="flex items-center gap-4">
+													<div className="text-right">
+														<p className="text-lg font-medium">
+															{payment.currency} {parseFloat(payment.amount).toLocaleString()}
+														</p>
+													</div>
+													{payment.status === "pending" && (
+														<Button
+															size="sm"
+															variant="outline"
+															onClick={() => handleCompletePayment(payment.id)}
+															disabled={completingPayment === payment.id}
+															className="rounded-sm"
+														>
+															{completingPayment === payment.id ? (
+																"Completing..."
+															) : (
+																<>
+																	<CheckCircle2 className="h-4 w-4 mr-1" />
+																	Complete
+																</>
+															)}
+														</Button>
+													)}
 												</div>
 											</div>
 										))}

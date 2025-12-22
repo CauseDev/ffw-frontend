@@ -1,6 +1,6 @@
 import { useAuthStore } from '@/store/auth-store';
 import { api } from '@/lib/api';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { AuthResponse, LoginRequest, RegisterRequest, User } from '@/types';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
@@ -9,6 +9,7 @@ import { useEffect } from 'react';
 export function useAuth() {
 	const { user, isAuthenticated, setUser, logout: storeLogout } = useAuthStore();
 	const router = useRouter();
+	const queryClient = useQueryClient();
 
 	const loginMutation = useMutation({
 		mutationFn: async (data: LoginRequest) => {
@@ -27,6 +28,10 @@ export function useAuth() {
 			localStorage.setItem('access_token', data.access_token);
 			localStorage.setItem('refresh_token', data.refresh_token);
 			setUser(data.user);
+			
+			// Invalidate and refetch user query to ensure fresh data
+			queryClient.setQueryData(['currentUser'], data.user);
+			
 			toast.success('Welcome Back!', {
 				description: `Logged in as ${data.user.full_name}`,
 				duration: 3000,
@@ -139,7 +144,7 @@ export function useAuth() {
 		gcTime: 10 * 60 * 1000, // 10 minutes
 		refetchOnWindowFocus: false, // Don't refetch on window focus to avoid unnecessary calls
 		refetchOnReconnect: false, // Don't refetch on reconnect to avoid unnecessary calls
-		refetchOnMount: false, // Don't refetch on mount if data exists
+		refetchOnMount: true, // Always refetch on mount to ensure fresh user data after login
 	});
 
 	// Sync fetched user data with store
@@ -151,6 +156,8 @@ export function useAuth() {
 
 	const logout = () => {
 		storeLogout();
+		// Clear the user query cache on logout
+		queryClient.removeQueries({ queryKey: ['currentUser'] });
 		router.push('/login');
 		toast.success('Logged Out', {
 			description: 'You have been successfully logged out.',

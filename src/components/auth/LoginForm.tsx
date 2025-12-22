@@ -69,7 +69,7 @@ export function LoginForm() {
 					)}
 				/>
 
-				<Button type="submit" className="w-full h-10 rounded" disabled={isLoginLoading}>
+				<Button type="submit" className="w-full h-10 rounded-sm" disabled={isLoginLoading}>
 					{isLoginLoading ?"Signing in..." :"Sign In"}
 				</Button>
 			</form>

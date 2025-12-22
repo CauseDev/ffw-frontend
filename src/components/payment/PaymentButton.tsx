@@ -75,7 +75,7 @@ export function PaymentButton({ className }: PaymentButtonProps) {
 			<Button
 				onClick={handlePayment}
 				disabled={initiatePaymentMutation.isPending || loadingPrice}
-				className={`${className} rounded px-6!`}
+				className={`${className} rounded-sm px-6!`}
 				size="lg"
 			>
 				{initiatePaymentMutation.isPending ? (
@@ -97,7 +97,7 @@ export function PaymentButton({ className }: PaymentButtonProps) {
 			</Button>
 
 			<Dialog open={showDialog} onOpenChange={setShowDialog}>
-				<DialogContent className="rounded-sm! max-w-xl!">
+				<DialogContent className="rounded-sm-sm! max-w-xl!">
 					<DialogHeader>
 						<DialogTitle>Confirm Enrollment</DialogTitle>
 						<DialogDescription>
@@ -131,14 +131,14 @@ export function PaymentButton({ className }: PaymentButtonProps) {
 							<Button
 								variant="outline"
 								onClick={() => setShowDialog(false)}
-								className="h-10 rounded px-6!"
+								className="h-10 rounded-sm px-6!"
 							>
 								Cancel
 							</Button>
 							<Button
 								onClick={confirmPayment}
 								disabled={initiatePaymentMutation.isPending}
-								className="bg-[#049ad1] hover:bg-[#049ad1]/80 h-10 px-6! rounded"
+								className="bg-[#049ad1] hover:bg-[#049ad1]/80 h-10 px-6! rounded-sm"
 							>
 								{initiatePaymentMutation.isPending ? (
 									<>

@@ -50,7 +50,7 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
 function DefaultErrorFallback({ error, reset }: { error: Error; reset: () => void }) {
 	return (
 		<div className="min-h-screen flex items-center justify-center p-4">
-			<Card className="max-w-lg! w-full rounded-sm shadow-xs">
+			<Card className="max-w-lg! w-full rounded-sm-sm shadow-xs">
 				<CardHeader>
 					<div className="flex items-center gap-2">
 						<AlertTriangle className="h-5 w-5 text-destructive" />
@@ -68,10 +68,10 @@ function DefaultErrorFallback({ error, reset }: { error: Error; reset: () => voi
 					</div>
 				</CardContent>
 				<CardFooter className="flex! justify-between! items-center! gap-2">
-					<Button onClick={reset} variant="default" className='rounded h-10 px-6!'>
+					<Button onClick={reset} variant="default" className='rounded-sm h-10 px-6!'>
 						Try again
 					</Button>
-					<Button onClick={() => window.location.href = '/'} variant="outline" className='rounded h-10 px-6!'>
+					<Button onClick={() => window.location.href = '/'} variant="outline" className='rounded-sm h-10 px-6!'>
 						Go home
 					</Button>
 				</CardFooter>

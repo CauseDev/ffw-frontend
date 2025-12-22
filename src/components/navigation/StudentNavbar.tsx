@@ -99,7 +99,7 @@ export function StudentNavbar() {
 
 				<DropdownMenu>
 					<DropdownMenuTrigger asChild>
-						<Button variant="ghost" className="relative h-10 w-10 rounded-full">
+						<Button variant="ghost" className="relative h-10 w-10 rounded-sm">
 							<Avatar className="rounded-lg w-10 h-10">
 								<AvatarImage 
 									src={user.profile_image_url || undefined} 

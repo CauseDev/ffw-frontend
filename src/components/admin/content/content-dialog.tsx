@@ -172,7 +172,7 @@ export function ContentDialog({ open, onOpenChange, content, moduleId, onSuccess
 
 	return (
 		<Dialog open={open} onOpenChange={onOpenChange}>
-			<DialogContent className="sm:max-w-[700px] max-h-[90vh] overflow-y-auto max-w-4xl! rounded">
+			<DialogContent className="sm:max-w-[700px] max-h-[90vh] overflow-y-auto max-w-4xl! rounded-sm">
 				<form onSubmit={handleSubmit}>
 					<DialogHeader>
 						<DialogTitle>{content ?"Edit Content" :"Create Content"}</DialogTitle>
@@ -217,11 +217,11 @@ export function ContentDialog({ open, onOpenChange, content, moduleId, onSuccess
 							<div className="grid gap-2">
 								<Label>Content Type *</Label>
 								<Tabs value={contentType} onValueChange={(v) => setContentType(v as any)}>
-									<TabsList className="grid w-full grid-cols-4 h-10 rounded">
-										<TabsTrigger value="video" className="rounded">Video</TabsTrigger>
-										<TabsTrigger value="pdf" className="rounded">PDF</TabsTrigger>
-										<TabsTrigger value="rich_text" className="rounded">Rich Text</TabsTrigger>
-										<TabsTrigger value="exercise" className="rounded">Exercise</TabsTrigger>
+									<TabsList className="grid w-full grid-cols-4 h-10 rounded-sm">
+										<TabsTrigger value="video" className="rounded-sm">Video</TabsTrigger>
+										<TabsTrigger value="pdf" className="rounded-sm">PDF</TabsTrigger>
+										<TabsTrigger value="rich_text" className="rounded-sm">Rich Text</TabsTrigger>
+										<TabsTrigger value="exercise" className="rounded-sm">Exercise</TabsTrigger>
 									</TabsList>
 								</Tabs>
 							</div>

@@ -235,17 +235,22 @@ export async function fetchContentProgress(
 }
 
 /**
- * Track module access for "resume where you left off"
+ * Track module and content access for "resume where you left off"
  * 
  * @param moduleId - The ID of the module being accessed
+ * @param contentId - Optional ID of the content being accessed
  * @returns Success message
  * @throws {ProgressError} When the tracking fails
  */
 export async function trackModuleAccess(
-  moduleId: string
+  moduleId: string,
+  contentId?: string
 ): Promise<{ message: string }> {
   try {
-    const response = await api.post<{ message: string }>(`/progress/access/${moduleId}`);
+    const url = contentId 
+      ? `/progress/access/${moduleId}?content_id=${contentId}`
+      : `/progress/access/${moduleId}`;
+    const response = await api.post<{ message: string }>(url);
     return response.data;
   } catch (error) {
     // Silently fail - this is not critical

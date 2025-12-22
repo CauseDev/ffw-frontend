@@ -145,16 +145,16 @@ function SuccessContent() {
 					<div className="pt-4 space-y-2">
 						{paymentStatus?.status === 'completed' ? (
 							<>
-								<Button asChild className="w-full h-10 bg-[#049ad1] hover:bg-[#049ad1]/80 rounded">
+								<Button asChild className="w-full h-10 bg-[#049ad1] hover:bg-[#049ad1]/80 rounded-sm">
 									<Link href="/students/signature">Complete Signature</Link>
 								</Button>
-								<Button asChild variant="outline" className="w-full h-10 rounded">
+								<Button asChild variant="outline" className="w-full h-10 rounded-sm">
 									<Link href="/students/dashboard">Go to Dashboard</Link>
 								</Button>
 							</>
 						) : (
 							<>
-								<Button asChild variant="outline" className="w-full h-10 rounded">
+								<Button asChild variant="outline" className="w-full h-10 rounded-sm">
 									<Link href="/students/dashboard">Go to Dashboard</Link>
 								</Button>
 								<p className="text-xs text-center text-muted-foreground mt-2">

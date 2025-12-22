@@ -115,7 +115,7 @@ export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
 					)}
 				/>
 
-				<Button type="submit" className="w-full h-10 rounded mb-4" disabled={isLoading}>
+				<Button type="submit" className="w-full h-10 rounded-sm mb-4" disabled={isLoading}>
 					{isLoading ?"Resetting..." :"Reset Password"}
 				</Button>
 			</form>

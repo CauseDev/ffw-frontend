@@ -49,9 +49,9 @@ export function NavUser() {
 							size="lg"
 							className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground gap-2"
 						>
-							<Avatar className="h-10 w-10 rounded-full">
+							<Avatar className="h-10 w-10 rounded-sm-full">
 								<AvatarImage src={user.profile_image_url} alt={user.full_name} />
-								<AvatarFallback className="rounded-lg">{initials}</AvatarFallback>
+								<AvatarFallback className="rounded-sm-lg">{initials}</AvatarFallback>
 							</Avatar>
 							<div className="grid flex-1 text-left text-sm leading-tight">
 								<span className="truncate font-medium">{user.full_name}</span>
@@ -63,16 +63,16 @@ export function NavUser() {
 						</SidebarMenuButton>
 					</DropdownMenuTrigger>
 					<DropdownMenuContent
-						className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded ml-2"
+						className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-sm ml-2"
 						side={isMobile ?"bottom" :"right"}
 						align="end"
 						sideOffset={4}
 					>
 						<DropdownMenuLabel className="p-0 font-normal">
 							<div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-								<Avatar className="h-8 w-8 rounded-full">
+								<Avatar className="h-8 w-8 rounded-sm-full">
 									<AvatarImage src={user.profile_image_url} alt={user.full_name} />
-									<AvatarFallback className="rounded-lg">{initials}</AvatarFallback>
+									<AvatarFallback className="rounded-sm-lg">{initials}</AvatarFallback>
 								</Avatar>
 								<div className="grid flex-1 text-left text-sm leading-tight">
 									<span className="truncate font-medium">{user.full_name}</span>
@@ -94,7 +94,7 @@ export function NavUser() {
 							</DropdownMenuItem>
 						</DropdownMenuGroup> */}
 						<DropdownMenuSeparator />
-						<DropdownMenuItem onClick={logout} variant="destructive" className="h-9 rounded">
+						<DropdownMenuItem onClick={logout} variant="destructive" className="h-9 rounded-sm">
 							<LogOut className="h-4 w-4" />
 							Log out
 						</DropdownMenuItem>

@@ -85,7 +85,7 @@ export function ForgotPasswordForm() {
 					)}
 				/>
 
-				<Button type="submit" className="w-full h-10 rounded" disabled={isLoading}>
+				<Button type="submit" className="w-full h-10 rounded-sm" disabled={isLoading}>
 					{isLoading ?"Sending..." :"Send Reset Link"}
 				</Button>
 

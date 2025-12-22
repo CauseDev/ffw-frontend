@@ -70,7 +70,7 @@ export function ReviewForm({ onSuccess }: ReviewFormProps) {
 
 	if (submitted) {
 		return (
-			<Card className="rounded-sm shadow-xs">
+			<Card className="rounded-sm-sm shadow-xs">
 				<CardHeader>
 					<CardTitle>
 						Thank You for Your Review!
@@ -89,7 +89,7 @@ export function ReviewForm({ onSuccess }: ReviewFormProps) {
 	}
 
 	return (
-		<Card className="rounded-sm shadow-xs">
+		<Card className="rounded-sm-sm shadow-xs">
 			<CardHeader>
 				<CardTitle className="flex items-center gap-2">
 					Share Your Experience
@@ -146,7 +146,7 @@ export function ReviewForm({ onSuccess }: ReviewFormProps) {
 					<Button
 						type="submit"
 						disabled={submitReviewMutation.isPending}
-						className="w-full rounded h-10 bg-[#049ad1] hover:bg-[#049ad1]/80"
+						className="w-full rounded-sm h-10 bg-[#049ad1] hover:bg-[#049ad1]/80"
 					>
 						{submitReviewMutation.isPending ?"Submitting..." :"Submit Review"}
 					</Button>

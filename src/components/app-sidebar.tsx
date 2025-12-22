@@ -86,7 +86,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 								
 								return (
 									<SidebarMenuItem key={item.title}>
-										<SidebarMenuButton asChild isActive={isActive} className="h-9! rounded! px-2!">
+										<SidebarMenuButton asChild isActive={isActive} className="h-9! rounded-sm! px-2!">
 											<Link 
 												href={item.url}
 												className={isActive ? "bg-[#049ad1]! text-white! hover:bg-[#049ad1]/90 hover:text-white" : ""}

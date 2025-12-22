@@ -75,12 +75,12 @@ export default function CheckEmailPage() {
 					</div>
 
 					<div className="space-y-4">
-						<Button asChild className="w-full h-10 rounded bg-[#049ad1] hover:bg-[#049ad1]/80">
+						<Button asChild className="w-full h-10 rounded-sm bg-[#049ad1] hover:bg-[#049ad1]/80">
 							<Link href="/login">
 								Go to Login
 							</Link>
 						</Button>
-						<Button asChild variant="outline" className="w-full h-10 rounded">
+						<Button asChild variant="outline" className="w-full h-10 rounded-sm">
 							<Link href="/">Go to Home</Link>
 						</Button>
 					</div>

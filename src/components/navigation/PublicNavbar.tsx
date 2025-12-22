@@ -20,10 +20,10 @@ export function PublicNavbar() {
 				</Link>
 
 				<div className="flex items-center gap-3">
-					<Button asChild variant="outline" className="h-10 px-6! rounded-xs">
+					<Button asChild variant="outline" className="h-10 px-6! rounded-sm">
 						<Link href="/login">Login</Link>
 					</Button>
-					<Button asChild className="px-6! h-10 rounded-xs">
+					<Button asChild className="px-6! h-10 rounded-sm">
 						<Link href="/register">Get Started</Link>
 					</Button>
 				</div>

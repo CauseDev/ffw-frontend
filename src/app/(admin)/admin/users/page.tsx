@@ -193,7 +193,7 @@ export default function UsersPage() {
 					variant="outline"
 					onClick={exportUsersToCSV}
 					disabled={!filteredUsers || filteredUsers.length === 0}
-					className="rounded-sm px-6!"
+					className="rounded-sm-sm px-6!"
 				>
 					<Download className="h-4 w-4 mr-2" />
 					Export Data
@@ -202,7 +202,7 @@ export default function UsersPage() {
 
 			{/* Stats Cards */}
 			<div className="grid gap-4 md:grid-cols-3">
-				<Card className="rounded-md shadow-xs">
+				<Card className="rounded-sm-md shadow-xs">
 					<CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
 						<CardTitle className="text-sm font-medium">Total Users</CardTitle>
 						<Users className="h-4 w-4 text-muted-foreground" />
@@ -212,7 +212,7 @@ export default function UsersPage() {
 					</CardContent>
 				</Card>
 
-				<Card className="rounded-md shadow-xs">
+				<Card className="rounded-sm-md shadow-xs">
 					<CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
 						<CardTitle className="text-sm font-medium">Enrolled Users</CardTitle>
 						<UserCheck className="h-4 w-4 text-muted-foreground" />
@@ -225,7 +225,7 @@ export default function UsersPage() {
 					</CardContent>
 				</Card>
 
-				<Card className="rounded-md shadow-xs">
+				<Card className="rounded-sm-md shadow-xs">
 					<CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
 						<CardTitle className="text-sm font-medium">Verified Users</CardTitle>
 						<CheckCircle className="h-4 w-4 text-muted-foreground" />
@@ -240,7 +240,7 @@ export default function UsersPage() {
 			</div>
 
 			{/* Filters and Search */}
-			<Card className="rounded-md shadow-xs">
+			<Card className="rounded-sm-md shadow-xs">
 				<CardHeader>
 					<CardTitle>User List</CardTitle>
 					<CardDescription>Search and filter users</CardDescription>
@@ -277,7 +277,7 @@ export default function UsersPage() {
 			</Card>
 
 			{/* Users Table */}
-			<Card className="rounded-md shadow-xs">
+			<Card className="rounded-sm-md shadow-xs">
 				<CardContent className="p-0">
 					<Table>
 						<TableHeader>
@@ -366,7 +366,7 @@ export default function UsersPage() {
 										</TableCell>
 										<TableCell className="text-right px-4">
 											<Link href={`/admin/users/${user.id}`}>
-												<Button variant="outline" size="sm" className="rounded">
+												<Button variant="outline" size="sm" className="rounded-sm">
 													View Details
 												</Button>
 											</Link>
@@ -430,7 +430,7 @@ function UsersSkeleton() {
 			</div>
 			<div className="grid gap-4 md:grid-cols-3">
 				{Array.from({ length: 3 }).map((_, i) => (
-					<Card key={i} className="rounded-sm shadow-none">
+					<Card key={i} className="rounded-sm-sm shadow-none">
 						<CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
 							<Skeleton className="h-4 w-24" />
 							<Skeleton className="h-4 w-4" />
@@ -442,7 +442,7 @@ function UsersSkeleton() {
 					</Card>
 				))}
 			</div>
-			<Card className="rounded-md shadow-xs">
+			<Card className="rounded-sm-md shadow-xs">
 				<CardHeader>
 					<Skeleton className="h-6 w-32 mb-2" />
 					<Skeleton className="h-4 w-48" />

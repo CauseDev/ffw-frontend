@@ -128,7 +128,7 @@ export function RegisterForm() {
 									<Button
 										type="button"
 										variant="outline"
-										className="rounded"
+										className="rounded-sm-sm"
 										onClick={() => fileInputRef.current?.click()}
 									>
 										<Upload className="mr-2 h-4 w-4" />
@@ -138,7 +138,7 @@ export function RegisterForm() {
 										<img
 											src={previewUrl}
 											alt="Preview"
-											className="h-12 w-12 rounded-full object-cover"
+											className="h-12 w-12 rounded-sm-sm-full object-cover"
 										/>
 									)}
 								</div>
@@ -176,7 +176,7 @@ export function RegisterForm() {
 					)}
 				/>
 
-				<Button type="submit" className="w-full h-10 rounded" disabled={isRegisterLoading}>
+				<Button type="submit" className="w-full h-10 rounded-sm-sm" disabled={isRegisterLoading}>
 					{isRegisterLoading ?"Creating account..." :"Create Account"}
 				</Button>
 			</form>

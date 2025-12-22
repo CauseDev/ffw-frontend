@@ -173,7 +173,7 @@ export default function AdminDashboardPage() {
 					<h1 className="text-2xl font-bold mb-2">Dashboard</h1>
 					<p className="text-muted-foreground">Overview of your LMS performance</p>
 				</div>
-				<Button onClick={() => exportAllAnalyticsCSV(analytics)} className="h-10 px-6! rounded-md">
+				<Button onClick={() => exportAllAnalyticsCSV(analytics)} className="h-10 px-6! rounded-sm">
 					<Download className="h-4 w-4 mr-2" />
 					Export All Data
 				</Button>

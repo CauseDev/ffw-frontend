@@ -119,13 +119,16 @@ export default function ModuleContentPage() {
 		}
 	}, [user, router]);
 
-	// Redirect if module is locked
+	// Redirect if module is locked (only check on initial load)
 	useEffect(() => {
-		if (allModules && module && !isModuleAccessible()) {
-			toast.error("Complete the previous module to unlock this one");
-			router.push("/students/course");
+		if (allModules && module) {
+			const accessible = isModuleAccessible();
+			if (!accessible) {
+				toast.error("Complete the previous module to unlock this one");
+				router.push("/students/course");
+			}
 		}
-	}, [allModules, module]);
+	}, [allModules?.length, module?.id]); // Only run when modules or module changes, not on every render
 
 	// Track module access for "resume where you left off"
 	useEffect(() => {
@@ -136,6 +139,17 @@ export default function ModuleContentPage() {
 			});
 		}
 	}, [moduleId, user]);
+
+	// Track content access when content is selected
+	useEffect(() => {
+		if (selectedContentId && moduleId && user?.is_enrolled) {
+			// Track content access for resume feature
+			import('@/lib/api/progress').then(({ trackModuleAccess }) => {
+				// Call with content_id as query parameter
+				trackModuleAccess(moduleId, selectedContentId);
+			});
+		}
+	}, [selectedContentId, moduleId, user]);
 
 
 
@@ -396,9 +410,10 @@ export default function ModuleContentPage() {
 							variant="outline"
 							disabled={!canNavigateToNextModule}
 							className="h-10 px-4! rounded-sm"
-							onClick={() => {
-								if (!isCurrentModuleCompleted && hasNextModule) {
-									toast.error("Complete all content in this module to unlock the next module");
+							onClick={(e) => {
+								if (!canNavigateToNextModule && hasNextModule) {
+									e.preventDefault();
+									toast.error("Complete all content in this module first");
 								}
 							}}
 							title={!isCurrentModuleCompleted && hasNextModule ? "Complete all content to unlock" : ""}
@@ -568,7 +583,7 @@ export default function ModuleContentPage() {
 												/>
 											)}
 
-										<div className="flex justify-between items-center mt-4">
+										<div className="flex justify-between items-center mt-10">
 											{/* Mark as Complete Button */}
 											{!isContentCompleted(selectedContent.id) ? (
 												<Button

@@ -80,7 +80,7 @@ export default function HeroSection() {
           </p>
 
           <div className="flex flex-col sm:flex-row justify-center gap-4 mb-8">
-            <Button className="px-16! h-12 bg-[#049AD1] hover:bg-[#049AD1]/80 text-white rounded">
+            <Button className="px-16! h-12 bg-[#049AD1] hover:bg-[#049AD1]/80 text-white rounded-sm">
               <Link href={"/register"}>Get Started</Link>
             </Button>
           </div>

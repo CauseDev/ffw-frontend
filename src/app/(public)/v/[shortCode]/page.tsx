@@ -17,11 +17,11 @@ export default async function ShortUrlPage({ params }: ShortUrlPageProps) {
     const { shortCode } = await params;
 
     // Look up the full cert ID from the backend using the short code
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+    const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8000/api';
 
     try {
         const response = await fetch(
-            `${apiUrl}/api/certificates/lookup/${shortCode.toUpperCase()}`,
+            `${API_BASE_URL}/certificates/lookup/${shortCode.toUpperCase()}`,
             {
                 cache: 'no-store',
             }

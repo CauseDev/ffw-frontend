@@ -48,7 +48,7 @@ function VerifyEmailContent() {
 	}, [searchParams, router]);
 
 	return (
-		<Card className="w-full max-w-lg rounded-md">
+		<Card className="w-full max-w-lg rounded-sm-md">
 			<CardHeader className="space-y-1">
 				<div className="flex justify-center mb-4">
 					<Link href="/" className="hover:opacity-80 transition-opacity">
@@ -90,10 +90,10 @@ function VerifyEmailContent() {
 
 					{status ==="error" && (
 						<div className="flex flex-col gap-2 w-full">
-							<Button asChild className="w-full h-10 rounded">
+							<Button asChild className="w-full h-10 rounded-sm">
 								<Link href="/login">Go to Login</Link>
 							</Button>
-							<Button asChild variant="outline" className="w-full h-10 rounded">
+							<Button asChild variant="outline" className="w-full h-10 rounded-sm">
 								<Link href="/register">Register Again</Link>
 							</Button>
 						</div>

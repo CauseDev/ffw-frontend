@@ -79,7 +79,7 @@ export default function CertificatePage() {
 				<div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 					<Card className="shadow-xs">
 						<CardContent className="text-center py-12">
-							<div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+							<div className="animate-spin rounded-sm-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
 							<p className="mt-4 text-lg font-medium">Generating your certificate...</p>
 							<p className="mt-2 text-sm text-muted-foreground">
 								This may take a few moments. Please wait.
@@ -109,7 +109,7 @@ export default function CertificatePage() {
 							<p className="text-sm text-muted-foreground">
 								Your certificate will be automatically generated once you complete all course modules.
 							</p>
-							<Button asChild className="h-10 px-6! rounded-sm" variant={"outline"}>
+							<Button asChild className="h-10 px-6! rounded-sm-sm" variant={"outline"}>
 								<Link href="/students/course">Continue Learning</Link>
 							</Button>
 						</CardContent>
@@ -133,7 +133,7 @@ export default function CertificatePage() {
 				</div>
 
 				{/* Certificate Card */}
-				<Card className="shadow-xs rounded">
+				<Card className="shadow-xs rounded-sm">
 					<CardHeader>
 						<div className="flex items-center justify-between">
 							<div>
@@ -158,7 +158,7 @@ export default function CertificatePage() {
 						{certificate.certificate_url ? (
 							<CertificateViewer url={certificate.certificate_url} />
 						) : (
-							<div className="border rounded-sm p-8 bg-linear-to-br from-blue-50 to-purple-50 dark:from-blue-950 dark:to-purple-950">
+							<div className="border rounded-sm-sm p-8 bg-linear-to-br from-blue-50 to-purple-50 dark:from-blue-950 dark:to-purple-950">
 								<div className="text-center space-y-4">
 									<div>
 										<p className="text-sm text-muted-foreground">This certifies that</p>
@@ -204,13 +204,13 @@ export default function CertificatePage() {
 
 						{/* Actions */}
 						<div className="flex flex-col sm:flex-row gap-4">
-							<Button asChild className="flex-1 h-10 rounded bg-[#049ad1] hover:bg-[#049ad1]/80">
+							<Button asChild className="flex-1 h-10 rounded-sm bg-[#049ad1] hover:bg-[#049ad1]/80">
 								<a href={certificate.certificate_url} download target="_blank" rel="noopener noreferrer">
 									<Download className="mr-2 h-4 w-4" />
 									Download Certificate
 								</a>
 							</Button>
-							<Button asChild variant="outline" className="flex-1 h-10 rounded">
+							<Button asChild variant="outline" className="flex-1 h-10 rounded-sm">
 								<a href={verificationUrl} target="_blank" rel="noopener noreferrer">
 									<ExternalLink className="mr-2 h-4 w-4" />
 									Verify Certificate
@@ -228,7 +228,7 @@ export default function CertificatePage() {
 								<Button
 									
 									variant="outline"
-									className="rounded"
+									className="rounded-sm"
 									onClick={() => {
 										navigator.clipboard.writeText(verificationUrl);
 									}}
@@ -248,7 +248,7 @@ export default function CertificatePage() {
 
 				{/* Back to Dashboard */}
 				<div className="text-center">
-					<Button asChild variant="outline" className="h-10 w-1/2 mb-10 rounded">
+					<Button asChild variant="outline" className="h-10 w-1/2 mb-10 rounded-sm">
 						<Link href="/students/dashboard">Back to Dashboard</Link>
 					</Button>
 				</div>

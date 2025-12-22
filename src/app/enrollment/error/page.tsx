@@ -13,9 +13,9 @@ function ErrorContent() {
 
 	return (
 		<div className="min-h-screen flex items-center justify-center bg-gray-50 py-10">
-			<Card className="w-full max-w-md rounded-sm shadow-xs">
+			<Card className="w-full max-w-md rounded-sm-sm shadow-xs">
 				<CardHeader className="text-center">
-					<div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full">
+					<div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-sm-full">
 						<AlertCircle className="h-10 w-10 text-orange-600" />
 					</div>
 					<CardTitle className="text-2xl">Payment Error</CardTitle>
@@ -38,10 +38,10 @@ function ErrorContent() {
 					</div>
 
 					<div className="pt-4 space-y-2">
-						<Button asChild className="w-full rounded h-10">
+						<Button asChild className="w-full rounded-sm h-10">
 							<Link href="/enroll">Try Again</Link>
 						</Button>
-						<Button asChild variant="outline" className="w-full rounded h-10">
+						<Button asChild variant="outline" className="w-full rounded-sm h-10">
 							<Link href="/">Go to Home</Link>
 						</Button>
 					</div>
@@ -59,7 +59,7 @@ export default function EnrollmentErrorPageWrapper() {
 	return (
 		<Suspense fallback={
 			<div className="min-h-screen flex items-center justify-center">
-				<div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+				<div className="animate-spin rounded-sm-full h-8 w-8 border-b-2 border-gray-900"></div>
 			</div>
 		}>
 			<ErrorContent />

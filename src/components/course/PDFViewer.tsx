@@ -38,12 +38,12 @@ export function PDFViewer({ content }: PDFViewerProps) {
 					</p>
 				</div>
 				<div className="flex justify-center gap-2">
-					<Button onClick={handleRetry} variant="outline">
+					<Button onClick={handleRetry} variant="outline" className="rounded-sm">
 						<RefreshCw className="mr-2 h-4 w-4" />
 						Retry
 					</Button>
-					<Button asChild variant="default">
-						<a href={content.pdf_url} download={content.pdf_filename}>
+					<Button asChild variant="default" className="rounded-sm">
+						<a href={content.pdf_url} download={content.pdf_filename || 'document.pdf'}>
 							<Download className="mr-2 h-4 w-4" />
 							Download PDF
 						</a>
@@ -55,27 +55,28 @@ export function PDFViewer({ content }: PDFViewerProps) {
 
 	return (
 		<div className="space-y-4">
-			{/* PDF Display - Show immediately */}
-			<div className="border overflow-hidden bg-white" style={{ height: "600px" }}>
+			{/* PDF Display - Embedded viewer */}
+			<div className="border rounded-sm overflow-hidden bg-white" style={{ height: "600px" }}>
 				<iframe
 					key={retryKey}
-					src={content.pdf_url}
+					src={`${content.pdf_url}#toolbar=1&navpanes=1&scrollbar=1`}
 					className="w-full h-full"
 					title={content.title}
 					onError={() => setHasError(true)}
+					style={{ border: 'none' }}
 				/>
 			</div>
 
 			{/* Actions */}
 			<div className="flex justify-between items-center gap-4">
-				<Button asChild variant="outline">
+				<Button asChild variant="outline" className="rounded-sm">
 					<a href={content.pdf_url} target="_blank" rel="noopener noreferrer">
 						<ExternalLink className="mr-2 h-4 w-4" />
 						Open in New Tab
 					</a>
 				</Button>
-				<Button asChild variant="outline">
-					<a href={content.pdf_url} download={content.pdf_filename}>
+				<Button asChild variant="outline" className="rounded-sm">
+					<a href={content.pdf_url} download={content.pdf_filename || 'document.pdf'}>
 						<Download className="mr-2 h-4 w-4" />
 						Download PDF
 					</a>

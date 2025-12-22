@@ -1,35 +1,92 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Content } from "@/types";
 import { Button } from "@/components/ui/button";
-import { Download, ExternalLink, AlertCircle, RefreshCw } from "lucide-react";
+import { Download, ExternalLink, AlertCircle, RefreshCw, Loader2 } from "lucide-react";
 
 interface PDFViewerProps {
 	content: Content;
 }
 
 export function PDFViewer({ content }: PDFViewerProps) {
+	const [blobUrl, setBlobUrl] = useState<string | null>(null);
+	const [loading, setLoading] = useState(true);
 	const [hasError, setHasError] = useState(false);
 	const [retryKey, setRetryKey] = useState(0);
 
+	useEffect(() => {
+		let objectUrl: string | null = null;
+
+		const loadPDF = async () => {
+			try {
+				setLoading(true);
+				setHasError(false);
+
+				if (!content.pdf_url) {
+					setHasError(true);
+					setLoading(false);
+					return;
+				}
+
+				// Fetch the PDF as a blob to bypass Content-Disposition header
+				const response = await fetch(content.pdf_url);
+				
+				if (!response.ok) {
+					throw new Error('Failed to load PDF');
+				}
+
+				const blob = await response.blob();
+				
+				// Create a blob URL
+				objectUrl = URL.createObjectURL(blob);
+				setBlobUrl(objectUrl);
+				setLoading(false);
+			} catch (err) {
+				console.error('Error loading PDF:', err);
+				setHasError(true);
+				setLoading(false);
+			}
+		};
+
+		loadPDF();
+
+		// Cleanup: revoke the blob URL when component unmounts or content changes
+		return () => {
+			if (objectUrl) {
+				URL.revokeObjectURL(objectUrl);
+			}
+		};
+	}, [content.pdf_url, retryKey]);
+
 	const handleRetry = () => {
-		setHasError(false);
+		setBlobUrl(null);
 		setRetryKey(prev => prev + 1);
 	};
 
 	if (!content.pdf_url) {
 		return (
-			<div className="bg-muted rounded-lg p-8 text-center">
+			<div className="bg-muted rounded-sm p-8 text-center">
 				<AlertCircle className="h-12 w-12 text-muted-foreground mx-auto mb-2" />
 				<p className="text-muted-foreground">PDF not available</p>
 			</div>
 		);
 	}
 
-	if (hasError) {
+	if (loading) {
 		return (
-			<div className="bg-muted rounded-lg p-8 text-center space-y-4">
+			<div className="border rounded-sm overflow-hidden bg-white flex items-center justify-center" style={{ height: "600px" }}>
+				<div className="flex flex-col items-center gap-3">
+					<Loader2 className="h-8 w-8 animate-spin text-primary" />
+					<p className="text-sm text-muted-foreground">Loading PDF...</p>
+				</div>
+			</div>
+		);
+	}
+
+	if (hasError || !blobUrl) {
+		return (
+			<div className="bg-muted rounded-sm p-8 text-center space-y-4">
 				<AlertCircle className="h-12 w-12 text-destructive mx-auto" />
 				<div>
 					<p className="text-destructive font-medium">Failed to load PDF</p>
@@ -55,14 +112,12 @@ export function PDFViewer({ content }: PDFViewerProps) {
 
 	return (
 		<div className="space-y-4">
-			{/* PDF Display - Embedded viewer */}
+			{/* PDF Display - Using blob URL like CertificateViewer */}
 			<div className="border rounded-sm overflow-hidden bg-white" style={{ height: "600px" }}>
 				<iframe
-					key={retryKey}
-					src={`${content.pdf_url}#toolbar=1&navpanes=1&scrollbar=1`}
+					src={blobUrl}
 					className="w-full h-full"
 					title={content.title}
-					onError={() => setHasError(true)}
 					style={{ border: 'none' }}
 				/>
 			</div>

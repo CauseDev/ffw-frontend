@@ -56,19 +56,18 @@ export default function HeroSection() {
                   {/* Triple concentric circles with different opacities */}
                   <div className="relative flex items-center justify-center mb-4">
                     {/* Outer circle - 80% opacity */}
-                    <div className="absolute h-8 w-8 rounded-full bg-[#049AD1]/60"></div>
+                    <div className="absolute h-8 w-8 rounded-full bg-[#049AD1]/90"></div>
                     {/* Middle circle - 90% opacity */}
                     <div className="absolute h-12 w-12 rounded-full bg-[#049AD1]/50"></div>
                     {/* Inner circle - 100% opacity with number */}
                     <div className="relative flex h-18 w-18 items-center justify-center rounded-full bg-[#049AD1]/10">
-                      <span className="text-lg font-bold text-primary">
+                      <span className="text-lg font-bold text-black">
                         {i + 1}
                       </span>
                     </div>
                   </div>
                   <span className="text-lg text-black font-semibold">
-                    {firstPart}{" "}
-                    {italicizedPart && <span>{italicizedPart}</span>}
+                    {firstPart} {italicizedPart && <i>{italicizedPart}</i>}
                   </span>
                 </div>
               );
@@ -167,7 +166,9 @@ export default function HeroSection() {
                     key={index}
                   >
                     <div className="mb-4 flex items-center justify-between gap-4 border-b pb-4">
-                      <h3 className="font-semibold text-[#049AD1] sm:text-lg md:text-xl">{`Step ${index + 1}: ${item.step}`}</h3>
+                      <h3 className="font-semibold text-[#049AD1] sm:text-lg md:text-xl">{`Step ${
+                        index + 1
+                      }: ${item.step}`}</h3>
 
                       <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-gray-500">
                         <Info />
